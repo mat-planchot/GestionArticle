@@ -211,9 +211,8 @@ object Form1: TForm1
     Left = 504
     Top = 184
   end
-  object DB_Hennin: TDatabase
-    AliasName = 'HENIN_BEAUMONT'
-    DatabaseName = 'HENIN_BEAUMONT'
+  object DB_master: TDatabase
+    DatabaseName = 'master'
     LoginPrompt = False
     Params.Strings = (
       'server name=VEQUALIS2'
@@ -242,8 +241,8 @@ object Form1: TForm1
     Left = 552
     Top = 184
   end
-  object Q_Hennin_Beaumont: TQuery
-    DatabaseName = 'HENIN_BEAUMONT'
+  object Q_Magasin: TQuery
+    DatabaseName = 'master'
     Left = 552
     Top = 232
   end
@@ -254,8 +253,9 @@ object Form1: TForm1
     Left = 504
     Top = 288
   end
-  object Database1: TDatabase
+  object DB_param_Interior: TDatabase
     AliasName = 'PARAM_INTERIOR'
+    DatabaseName = 'param_interior'
     LoginPrompt = False
     Params.Strings = (
       'server name=VEQUALIS2'

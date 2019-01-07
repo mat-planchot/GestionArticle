@@ -10,7 +10,7 @@ type
   TForm1 = class(TForm)
     DB_statsclipper: TDatabase;
     DB_VGE3: TDatabase;
-    DB_Hennin: TDatabase;
+    DB_master: TDatabase;
     Panel1: TPanel;
     BtnRech: TButton;
     EditRef: TEdit;
@@ -18,7 +18,7 @@ type
     Q_article_divers: TQuery;
     Q_article_interior: TQuery;
     Q_VGE3_article: TQuery;
-    Q_Hennin_Beaumont: TQuery;
+    Q_Magasin: TQuery;
     L_article_divers: TLabel;
     StaticText1: TStaticText;
     StaticText2: TStaticText;
@@ -42,7 +42,9 @@ type
 var
   Form1: TForm1;
   ref: string;
-  magasins: array of string;
+  magasins: tstringlist;
+  i: integer;
+  magasinsCount: integer;
 implementation
 
 {$R *.dfm}
@@ -95,6 +97,28 @@ begin
     L_VGE3.Caption:= 'null';
   end;
 
+  with Q_Magasin do
+  begin
+    magasinsCount:= magasins.Count - 1;
+    for i:=0 to magasinsCount do
+    begin
+      close;
+      SQL.Clear;
+      DatabaseName := magasins[i];
+      SQL.add('SELECT aarcode FROM '+ magasins[i] +'.dbo.article WHERE aarcode = ' + quotedstr(ref) );
+      open;
+      if Q_Magasin.FieldByName('aarcode').AsString = ref then
+      begin
+        L_Magasin.Caption:= 'existe dans '+ magasins[i];
+        break;
+      end
+      else begin
+        L_Magasin.Caption:= 'null';
+      end;
+    end;
+  end;
+
+
  { with Q_Hennin_Beaumont do
   begin
     for i:=0 to High(magasins) do
@@ -121,17 +145,19 @@ begin
 end;
 
 procedure TForm1.sqlCreate(Sender: TObject);
-var i: Integer;
 begin
+  magasins:= TStringList.Create;
   with Q_param_Interior do
   begin
     close;
     SQL.Clear;
     SQL.add('SELECT nombase FROM refmag WHERE actif = ''T'' ' );
     open;
-    for i:= 0 to Q_param_Interior.RecordCount - 1 do
-      magasins[i]:= Q_param_Interior.Fields[i].AsString;
-    showMessage(magasins[0]);
+    while not Q_param_Interior.Eof do
+    begin
+      magasins.Add(Q_param_Interior.FieldByName('nombase').AsString);
+      next;
+    end
   end;
 end;
 
