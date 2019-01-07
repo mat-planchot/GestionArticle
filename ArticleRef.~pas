@@ -44,6 +44,7 @@ var
   ref: string;
   magasins: tstringlist;
   i: integer;
+  magasinsCount: integer;
 implementation
 
 {$R *.dfm}
@@ -98,11 +99,11 @@ begin
 
   with Q_Magasin do
   begin
-    for i:=0 to magasins.Count - 2 do
+    magasinsCount:= magasins.Count - 1;
+    for i:=0 to magasinsCount do
     begin
       close;
       SQL.Clear;
-      DatabaseName := magasins[i];
       SQL.add('SELECT aarcode FROM '+ magasins[i] +'.dbo.article WHERE aarcode = ' + quotedstr(ref) );
       open;
       if Q_Magasin.FieldByName('aarcode').AsString = ref then
@@ -143,7 +144,6 @@ begin
 end;
 
 procedure TForm1.sqlCreate(Sender: TObject);
-var i: Integer;
 begin
   magasins:= TStringList.Create;
   with Q_param_Interior do

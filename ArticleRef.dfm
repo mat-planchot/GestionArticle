@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 502
-  Top = 195
-  Width = 697
+  Left = 576
+  Top = 202
+  Width = 498
   Height = 543
   Caption = 'Form1'
   Color = clBtnFace
@@ -180,6 +180,20 @@ object Form1: TForm1
       TabOrder = 6
       OnClick = Button1Click
     end
+    object StaticText5: TStaticText
+      Left = 56
+      Top = 368
+      Width = 346
+      Height = 24
+      Caption = 'Existence ou non de la r'#233'f'#233'rence dans les tables'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 7
+    end
   end
   object DB_statsclipper: TDatabase
     Connected = True
@@ -213,9 +227,11 @@ object Form1: TForm1
   end
   object DB_master: TDatabase
     DatabaseName = 'master'
+    DriverName = 'MSSQL'
     LoginPrompt = False
     Params.Strings = (
       'server name=VEQUALIS2'
+      'database name=master'
       ''
       'USER NAME=SA')
     SessionName = 'Default'

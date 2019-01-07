@@ -30,6 +30,7 @@ type
     Button1: TButton;
     Q_param_Interior: TQuery;
     DB_param_Interior: TDatabase;
+    StaticText5: TStaticText;
     procedure BtnRechClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure sqlCreate(Sender: TObject);
@@ -42,6 +43,7 @@ type
 var
   Form1: TForm1;
   ref: string;
+  ref4: string;
   magasins: tstringlist;
   i: integer;
   magasinsCount: integer;
@@ -84,6 +86,7 @@ begin
 
   with Q_VGE3_article do
   begin
+    //ref4:= ref.SubString(4);
     close;
     SQL.Clear;
     SQL.add('SELECT type FROM article WHERE type = ' + quotedstr(ref) );
@@ -104,7 +107,6 @@ begin
     begin
       close;
       SQL.Clear;
-      DatabaseName := magasins[i];
       SQL.add('SELECT aarcode FROM '+ magasins[i] +'.dbo.article WHERE aarcode = ' + quotedstr(ref) );
       open;
       if Q_Magasin.FieldByName('aarcode').AsString = ref then
