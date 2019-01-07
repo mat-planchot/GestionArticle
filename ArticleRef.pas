@@ -42,8 +42,8 @@ type
 
 var
   Form1: TForm1;
-  ref: string;
-  ref4: string;
+  ref: String;
+  ref4: String;
   magasins: tstringlist;
   i: integer;
   magasinsCount: integer;
@@ -52,7 +52,7 @@ implementation
 {$R *.dfm}
 procedure TForm1.BtnRechClick(Sender: TObject);
 begin
-  ref:= EditRef.Text;
+  ref:= UpperCase(EditRef.Text);
 
   with Q_article_divers do
   begin
@@ -86,13 +86,13 @@ begin
 
   with Q_VGE3_article do
   begin
-    //ref4:= ref.SubString(4);
+    ref4:= Copy(ref, 0, 4);
     close;
     SQL.Clear;
-    SQL.add('SELECT type FROM article WHERE type = ' + quotedstr(ref) );
+    SQL.add('SELECT type FROM article WHERE type = ' + quotedstr(ref4) );
     open;
   end;
-  if Q_VGE3_article.FieldByName('type').AsString = ref then
+  if Q_VGE3_article.FieldByName('type').AsString = ref4 then
   begin
     L_VGE3.Caption:= 'existe';
   end
@@ -119,25 +119,6 @@ begin
       end;
     end;
   end;
-
-
- { with Q_Hennin_Beaumont do
-  begin
-    for i:=0 to High(magasins) do
-
-      close;
-      SQL.Clear;
-      SQL.add('SELECT aarcode FROM henin_beaumont.dbo.article WHERE aarcode = ' + quotedstr(ref) );
-      open;
-    end;
-  end;
-  if Q_Hennin_Beaumont.FieldByName('aarcode').AsString = ref then
-  begin
-    L_Magasin.Caption:= 'existe';
-  end
-  else begin
-    L_Magasin.Caption:= 'null';
-  end;  }
 
 end {BtnRechClick};
 

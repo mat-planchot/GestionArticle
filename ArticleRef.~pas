@@ -30,6 +30,7 @@ type
     Button1: TButton;
     Q_param_Interior: TQuery;
     DB_param_Interior: TDatabase;
+    StaticText5: TStaticText;
     procedure BtnRechClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure sqlCreate(Sender: TObject);
@@ -41,7 +42,8 @@ type
 
 var
   Form1: TForm1;
-  ref: string;
+  ref: String;
+  ref4: String;
   magasins: tstringlist;
   i: integer;
   magasinsCount: integer;
@@ -84,14 +86,15 @@ begin
 
   with Q_VGE3_article do
   begin
+    ref4:= Copy(ref, 0, 4);
     close;
     SQL.Clear;
-    SQL.add('SELECT type FROM article WHERE type = ' + quotedstr(ref) );
+    SQL.add('SELECT type FROM article WHERE type = ' + quotedstr(ref4) );
     open;
   end;
-  if Q_VGE3_article.FieldByName('type').AsString = ref then
+  if Q_VGE3_article.FieldByName('type').AsString = ref4 then
   begin
-    L_VGE3.Caption:= 'existe';
+    L_VGE3.Caption:= 'existe'+ ref4;
   end
   else begin
     L_VGE3.Caption:= 'null';
@@ -116,25 +119,6 @@ begin
       end;
     end;
   end;
-
-
- { with Q_Hennin_Beaumont do
-  begin
-    for i:=0 to High(magasins) do
-
-      close;
-      SQL.Clear;
-      SQL.add('SELECT aarcode FROM henin_beaumont.dbo.article WHERE aarcode = ' + quotedstr(ref) );
-      open;
-    end;
-  end;
-  if Q_Hennin_Beaumont.FieldByName('aarcode').AsString = ref then
-  begin
-    L_Magasin.Caption:= 'existe';
-  end
-  else begin
-    L_Magasin.Caption:= 'null';
-  end;  }
 
 end {BtnRechClick};
 

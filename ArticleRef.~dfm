@@ -1,9 +1,9 @@
 object Form1: TForm1
-  Left = 514
-  Top = 216
+  Left = 567
+  Top = 205
   Width = 498
   Height = 543
-  Caption = 'Form1'
+  Caption = 'Reference'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,7 +22,7 @@ object Form1: TForm1
     TabOrder = 0
     object LabelRef: TLabel
       Left = 56
-      Top = 48
+      Top = 56
       Width = 145
       Height = 22
       Caption = 'R'#233'f'#233'rence article'
@@ -35,7 +35,7 @@ object Form1: TForm1
     end
     object L_article_divers: TLabel
       Left = 184
-      Top = 168
+      Top = 224
       Width = 4
       Height = 20
       Font.Charset = ANSI_CHARSET
@@ -47,7 +47,7 @@ object Form1: TForm1
     end
     object L_article_interior: TLabel
       Left = 184
-      Top = 224
+      Top = 280
       Width = 4
       Height = 20
       Font.Charset = ANSI_CHARSET
@@ -59,7 +59,7 @@ object Form1: TForm1
     end
     object L_VGE3: TLabel
       Left = 184
-      Top = 272
+      Top = 320
       Width = 4
       Height = 20
       Font.Charset = ANSI_CHARSET
@@ -71,7 +71,7 @@ object Form1: TForm1
     end
     object L_Magasin: TLabel
       Left = 184
-      Top = 320
+      Top = 360
       Width = 4
       Height = 20
       Font.Charset = ANSI_CHARSET
@@ -111,7 +111,7 @@ object Form1: TForm1
     end
     object StaticText1: TStaticText
       Left = 56
-      Top = 168
+      Top = 208
       Width = 108
       Height = 24
       Caption = 'article_divers : '
@@ -125,10 +125,10 @@ object Form1: TForm1
     end
     object StaticText2: TStaticText
       Left = 56
-      Top = 224
-      Width = 111
-      Height = 24
-      Caption = 'article_interior :'
+      Top = 264
+      Width = 113
+      Height = 41
+      Caption = 'stats_clipper'#13#10'article_interior :'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
@@ -139,7 +139,7 @@ object Form1: TForm1
     end
     object StaticText3: TStaticText
       Left = 56
-      Top = 272
+      Top = 320
       Width = 102
       Height = 24
       Caption = 'VGE3 article :'
@@ -153,7 +153,7 @@ object Form1: TForm1
     end
     object StaticText4: TStaticText
       Left = 56
-      Top = 320
+      Top = 360
       Width = 80
       Height = 24
       Caption = 'Magasins :'
@@ -179,6 +179,20 @@ object Form1: TForm1
       ParentFont = False
       TabOrder = 6
       OnClick = Button1Click
+    end
+    object StaticText5: TStaticText
+      Left = 56
+      Top = 160
+      Width = 354
+      Height = 24
+      Caption = 'Existence ou non de la r'#233'f'#233'rence dans les tables :'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 7
     end
   end
   object DB_statsclipper: TDatabase
