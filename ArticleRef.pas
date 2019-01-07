@@ -28,8 +28,11 @@ type
     L_VGE3: TLabel;
     L_Magasin: TLabel;
     Button1: TButton;
+    Q_param_Interior: TQuery;
+    DB_param_Interior: TDatabase;
     procedure BtnRechClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure sqlCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,7 +49,7 @@ implementation
 procedure TForm1.BtnRechClick(Sender: TObject);
 begin
   ref:= EditRef.Text;
-  magasins:= ;
+
   with Q_article_divers do
   begin
     active:=false;
@@ -92,13 +95,13 @@ begin
     L_VGE3.Caption:= 'null';
   end;
 
-  with Q_Hennin_Beaumont do
+ { with Q_Hennin_Beaumont do
   begin
     for i:=0 to High(magasins) do
 
       close;
       SQL.Clear;
-      SQL.add('SELECT aarcode FROM arras.dbo.article WHERE aarcode = ' + quotedstr(ref) );
+      SQL.add('SELECT aarcode FROM henin_beaumont.dbo.article WHERE aarcode = ' + quotedstr(ref) );
       open;
     end;
   end;
@@ -108,13 +111,28 @@ begin
   end
   else begin
     L_Magasin.Caption:= 'null';
-  end;
+  end;  }
 
 end {BtnRechClick};
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
   Form1.Close;
+end;
+
+procedure TForm1.sqlCreate(Sender: TObject);
+var i: Integer;
+begin
+  with Q_param_Interior do
+  begin
+    close;
+    SQL.Clear;
+    SQL.add('SELECT nombase FROM refmag WHERE actif = ''T'' ' );
+    open;
+    for i:= 0 to Q_param_Interior.RecordCount - 1 do
+      magasins[i]:= Q_param_Interior.Fields[i].AsString;
+    showMessage(magasins[0]);
+  end;
 end;
 
 end.

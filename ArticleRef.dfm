@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 712
-  Top = 191
+  Left = 502
+  Top = 195
   Width = 697
   Height = 543
   Caption = 'Form1'
@@ -11,6 +11,7 @@ object Form1: TForm1
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = sqlCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -245,5 +246,24 @@ object Form1: TForm1
     DatabaseName = 'HENIN_BEAUMONT'
     Left = 552
     Top = 232
+  end
+  object Q_param_Interior: TQuery
+    DatabaseName = 'PARAM_INTERIOR'
+    SQL.Strings = (
+      'SELECT nombase FROM refmag WHERE actif = '#39'T'#39)
+    Left = 504
+    Top = 288
+  end
+  object DB_param_Interior: TDatabase
+    AliasName = 'PARAM_INTERIOR'
+    DatabaseName = 'param_interior'
+    LoginPrompt = False
+    Params.Strings = (
+      'server name=VEQUALIS2'
+      ''
+      'USER NAME=SA')
+    SessionName = 'Default'
+    Left = 552
+    Top = 288
   end
 end
