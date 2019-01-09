@@ -20,19 +20,19 @@ type
     Q_VGE3_article: TQuery;
     Q_Magasin: TQuery;
     L_article_divers: TLabel;
-    StaticText1: TStaticText;
-    StaticText2: TStaticText;
-    StaticText3: TStaticText;
-    StaticText4: TStaticText;
+    STextDivers: TStaticText;
+    STextInterior: TStaticText;
+    STextVge3: TStaticText;
+    STextMagasins: TStaticText;
     L_article_interior: TLabel;
     L_VGE3: TLabel;
     L_Magasin: TLabel;
-    Button1: TButton;
+    BtnFermer: TButton;
     Q_param_Interior: TQuery;
     DB_param_Interior: TDatabase;
-    StaticText5: TStaticText;
+    STextExistence: TStaticText;
     procedure BtnRechClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure BtnFermerClick(Sender: TObject);
     procedure sqlCreate(Sender: TObject);
   private
     { Private declarations }
@@ -45,14 +45,18 @@ var
   ref: String;
   ref4: String;
   magasins: tstringlist;
-  i: integer;
+  i, reflenght: integer;
   magasinsCount: integer;
 implementation
 
 {$R *.dfm}
 procedure TForm1.BtnRechClick(Sender: TObject);
 begin
-  ref:= EditRef.Text;
+  ref:= UpperCase(EditRef.Text);
+  reflength:= length(ref);
+  if reflength = 0 then
+    showMessage('');
+
 
   with Q_article_divers do
   begin
@@ -94,7 +98,7 @@ begin
   end;
   if Q_VGE3_article.FieldByName('type').AsString = ref4 then
   begin
-    L_VGE3.Caption:= 'existe'+ ref4;
+    L_VGE3.Caption:= 'existe';
   end
   else begin
     L_VGE3.Caption:= 'null';
@@ -122,7 +126,7 @@ begin
 
 end {BtnRechClick};
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.BtnFermerClick(Sender: TObject);
 begin
   Form1.Close;
 end;

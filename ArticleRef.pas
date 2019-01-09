@@ -20,19 +20,19 @@ type
     Q_VGE3_article: TQuery;
     Q_Magasin: TQuery;
     L_article_divers: TLabel;
-    StaticText1: TStaticText;
-    StaticText2: TStaticText;
-    StaticText3: TStaticText;
-    StaticText4: TStaticText;
+    STextDivers: TStaticText;
+    STextInterior: TStaticText;
+    STextVge3: TStaticText;
+    STextMagasins: TStaticText;
     L_article_interior: TLabel;
     L_VGE3: TLabel;
     L_Magasin: TLabel;
-    Button1: TButton;
+    BtnFermer: TButton;
     Q_param_Interior: TQuery;
     DB_param_Interior: TDatabase;
-    StaticText5: TStaticText;
+    STextExistence: TStaticText;
     procedure BtnRechClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure BtnFermerClick(Sender: TObject);
     procedure sqlCreate(Sender: TObject);
   private
     { Private declarations }
@@ -53,6 +53,11 @@ implementation
 procedure TForm1.BtnRechClick(Sender: TObject);
 begin
   ref:= UpperCase(EditRef.Text);
+  if (length(ref) < 6) or (length(ref) > 6) then
+  begin
+    showMessage('Veuillez renseignez une référence de 6 caractères');
+  end
+  else begin
 
   with Q_article_divers do
   begin
@@ -119,10 +124,10 @@ begin
       end;
     end;
   end;
-
+  end;
 end {BtnRechClick};
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.BtnFermerClick(Sender: TObject);
 begin
   Form1.Close;
 end;

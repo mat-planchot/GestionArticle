@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 567
-  Top = 205
-  Width = 514
+  Left = 533
+  Top = 181
+  Width = 516
   Height = 543
   Caption = 'Reference'
   Color = clBtnFace
@@ -87,6 +87,7 @@ object Form1: TForm1
       Width = 153
       Height = 40
       Caption = 'Rechercher'
+      Default = True
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -19
@@ -109,7 +110,7 @@ object Form1: TForm1
       ParentFont = False
       TabOrder = 1
     end
-    object StaticText1: TStaticText
+    object STextDivers: TStaticText
       Left = 56
       Top = 208
       Width = 125
@@ -123,7 +124,7 @@ object Form1: TForm1
       ParentFont = False
       TabOrder = 2
     end
-    object StaticText2: TStaticText
+    object STextInterior: TStaticText
       Left = 56
       Top = 264
       Width = 129
@@ -137,7 +138,7 @@ object Form1: TForm1
       ParentFont = False
       TabOrder = 3
     end
-    object StaticText3: TStaticText
+    object STextVge3: TStaticText
       Left = 56
       Top = 320
       Width = 116
@@ -151,7 +152,7 @@ object Form1: TForm1
       ParentFont = False
       TabOrder = 4
     end
-    object StaticText4: TStaticText
+    object STextMagasins: TStaticText
       Left = 56
       Top = 360
       Width = 90
@@ -165,7 +166,7 @@ object Form1: TForm1
       ParentFont = False
       TabOrder = 5
     end
-    object Button1: TButton
+    object BtnFermer: TButton
       Left = 176
       Top = 424
       Width = 153
@@ -178,9 +179,9 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
       TabOrder = 6
-      OnClick = Button1Click
+      OnClick = BtnFermerClick
     end
-    object StaticText5: TStaticText
+    object STextExistence: TStaticText
       Left = 56
       Top = 160
       Width = 404
