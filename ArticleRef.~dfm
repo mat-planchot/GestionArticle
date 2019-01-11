@@ -1,7 +1,7 @@
 object Form1: TForm1
   Left = 523
   Top = 200
-  Width = 516
+  Width = 651
   Height = 543
   Caption = 'Reference'
   Color = clBtnFace
@@ -276,18 +276,19 @@ object Form1: TForm1
     Top = 232
   end
   object Q_param_Interior: TQuery
-    DatabaseName = 'PARAM_INTERIOR'
+    DatabaseName = 'paraminterior'
     SQL.Strings = (
       'SELECT nombase FROM refmag WHERE actif = '#39'T'#39)
     Left = 512
     Top = 288
   end
   object DB_param_Interior: TDatabase
-    AliasName = 'PARAM_INTERIOR'
-    DatabaseName = 'param_interior'
+    DatabaseName = 'paraminterior'
+    DriverName = 'MSSQL'
     LoginPrompt = False
     Params.Strings = (
       'server name=VEQUALIS2'
+      'database name =PARAM_INTERIOR'
       ''
       'USER NAME=SA')
     SessionName = 'Default'
