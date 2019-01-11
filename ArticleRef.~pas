@@ -146,6 +146,7 @@ begin
   begin
     close;
     SQL.Clear;
+    //Q_param_Interior.DatabaseName:= 'PARAM_INTERIOR';
     SQL.add('SELECT nombase FROM refmag WHERE actif = ''T'' ' );
     open;
     while not Q_param_Interior.Eof do
