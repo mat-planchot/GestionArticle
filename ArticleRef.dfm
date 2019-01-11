@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 533
-  Top = 181
-  Width = 516
+  Left = 523
+  Top = 200
+  Width = 651
   Height = 543
   Caption = 'Reference'
   Color = clBtnFace
@@ -59,7 +59,7 @@ object Form1: TForm1
     end
     object L_VGE3: TLabel
       Left = 184
-      Top = 320
+      Top = 312
       Width = 4
       Height = 20
       Font.Charset = ANSI_CHARSET
@@ -71,7 +71,7 @@ object Form1: TForm1
     end
     object L_Magasin: TLabel
       Left = 184
-      Top = 360
+      Top = 384
       Width = 4
       Height = 20
       Font.Charset = ANSI_CHARSET
@@ -140,7 +140,7 @@ object Form1: TForm1
     end
     object STextVge3: TStaticText
       Left = 56
-      Top = 320
+      Top = 312
       Width = 116
       Height = 24
       Caption = 'VGE3 article :'
@@ -154,7 +154,7 @@ object Form1: TForm1
     end
     object STextMagasins: TStaticText
       Left = 56
-      Top = 360
+      Top = 384
       Width = 90
       Height = 24
       Caption = 'Magasins :'
@@ -195,9 +195,22 @@ object Form1: TForm1
       ParentFont = False
       TabOrder = 7
     end
+    object STextVge3Precision: TStaticText
+      Left = 56
+      Top = 344
+      Width = 394
+      Height = 20
+      Caption = 'VGE3 ne prend en compte que les 4 premiers caract'#232'res'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 8
+    end
   end
   object DB_statsclipper: TDatabase
-    Connected = True
     DatabaseName = 'statclipper'
     DriverName = 'MSSQL'
     LoginPrompt = False
@@ -212,7 +225,6 @@ object Form1: TForm1
     Top = 136
   end
   object DB_VGE3: TDatabase
-    Connected = True
     DatabaseName = 'vge3'
     DriverName = 'MSSQL'
     LoginPrompt = False

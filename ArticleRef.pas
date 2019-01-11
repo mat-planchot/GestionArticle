@@ -31,6 +31,7 @@ type
     Q_param_Interior: TQuery;
     DB_param_Interior: TDatabase;
     STextExistence: TStaticText;
+    STextVge3Precision: TStaticText;
     procedure BtnRechClick(Sender: TObject);
     procedure BtnFermerClick(Sender: TObject);
     procedure sqlCreate(Sender: TObject);
@@ -42,8 +43,8 @@ type
 
 var
   Form1: TForm1;
-  ref: String;
-  ref4: String;
+  ref, ref4: String;
+  vge_type: String;
   magasins: tstringlist;
   i: integer;
   magasinsCount: integer;
@@ -94,12 +95,18 @@ begin
     ref4:= Copy(ref, 0, 4);
     close;
     SQL.Clear;
-    SQL.add('SELECT type FROM article WHERE type = ' + quotedstr(ref4) );
+    SQL.add('SELECT type FROM article WHERE type LIKE ' + quotedstr(ref4 +'%') );
     open;
   end;
   if Q_VGE3_article.FieldByName('type').AsString = ref4 then
   begin
-    L_VGE3.Caption:= 'existe';
+    L_VGE3.Caption:= 'existe ' + IntToStr(Q_VGE3_article.RecordCount) + ' :';
+    Q_VGE3_article.First;
+    while not Q_VGE3_article.Eof do
+    begin
+      L_VGE3.Caption:= L_VGE3.Caption + ' '+ Q_VGE3_article.FieldByName('type').AsString;
+      Q_VGE3_article.Next;
+    end;
   end
   else begin
     L_VGE3.Caption:= 'null';
