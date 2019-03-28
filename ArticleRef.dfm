@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 600
-  Top = 211
-  Width = 515
+  Left = 631
+  Top = 140
+  Width = 531
   Height = 543
   Caption = 'Reference'
   Color = clBtnFace
@@ -33,42 +33,6 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
     end
-    object L_article_divers: TLabel
-      Left = 184
-      Top = 208
-      Width = 4
-      Height = 20
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Arial Narrow'
-      Font.Style = []
-      ParentFont = False
-    end
-    object L_article_interior: TLabel
-      Left = 184
-      Top = 264
-      Width = 4
-      Height = 20
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Arial Narrow'
-      Font.Style = []
-      ParentFont = False
-    end
-    object L_VGE3: TLabel
-      Left = 184
-      Top = 312
-      Width = 4
-      Height = 20
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Arial Narrow'
-      Font.Style = []
-      ParentFont = False
-    end
     object L_Magasin: TLabel
       Left = 184
       Top = 384
@@ -81,9 +45,9 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
     end
-    object BtnRech: TButton
+    object B_Rechercher: TButton
       Left = 280
-      Top = 88
+      Top = 104
       Width = 153
       Height = 40
       Caption = 'Rechercher'
@@ -95,7 +59,7 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
       TabOrder = 0
-      OnClick = BtnRechClick
+      OnClick = B_RechercherClick
     end
     object EditRef: TEdit
       Left = 56
@@ -110,48 +74,6 @@ object Form1: TForm1
       ParentFont = False
       TabOrder = 1
     end
-    object STextDivers: TStaticText
-      Left = 56
-      Top = 208
-      Width = 125
-      Height = 24
-      Caption = 'article_divers : '
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 2
-    end
-    object STextInterior: TStaticText
-      Left = 56
-      Top = 264
-      Width = 129
-      Height = 24
-      Caption = 'article_interior :'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 3
-    end
-    object STextVge3: TStaticText
-      Left = 56
-      Top = 312
-      Width = 116
-      Height = 24
-      Caption = 'VGE3 article :'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 4
-    end
     object STextMagasins: TStaticText
       Left = 56
       Top = 384
@@ -164,7 +86,7 @@ object Form1: TForm1
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       ParentFont = False
-      TabOrder = 5
+      TabOrder = 2
     end
     object BtnFermer: TButton
       Left = 176
@@ -178,7 +100,7 @@ object Form1: TForm1
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentFont = False
-      TabOrder = 6
+      TabOrder = 3
       OnClick = BtnFermerClick
     end
     object STextExistence: TStaticText
@@ -193,11 +115,11 @@ object Form1: TForm1
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold, fsUnderline]
       ParentFont = False
-      TabOrder = 7
+      TabOrder = 4
     end
     object STextVge3Precision: TStaticText
       Left = 56
-      Top = 344
+      Top = 352
       Width = 394
       Height = 20
       Caption = 'VGE3 ne prend en compte que les 4 premiers caract'#232'res'
@@ -207,92 +129,81 @@ object Form1: TForm1
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       ParentFont = False
+      TabOrder = 5
+    end
+    object B_Ajout: TButton
+      Left = 280
+      Top = 48
+      Width = 153
+      Height = 41
+      Caption = 'Ajout'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 6
+      OnClick = B_AjoutClick
+    end
+    object CLB_Mag: TCheckListBox
+      Left = 56
+      Top = 192
+      Width = 217
+      Height = 145
+      OnClickCheck = CLB_MagClickCheck
+      ItemHeight = 13
+      TabOrder = 7
+      OnClick = CLB_MagClickCheck
+    end
+    object B_Supprimer: TButton
+      Left = 312
+      Top = 208
+      Width = 113
+      Height = 41
+      Caption = 'Supprimer'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 8
+      Visible = False
+    end
+    object B_Voir: TButton
+      Left = 312
+      Top = 272
+      Width = 113
+      Height = 41
+      Caption = 'Voir'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 9
+      Visible = False
+      OnClick = B_VoirClick
     end
   end
-  object DB_statsclipper: TDatabase
-    DatabaseName = 'statclipper'
-    DriverName = 'MSSQL'
+  object mag: TMyConnection
+    Database = 'article_magasin'
+    Username = 'root'
+    Server = 'localhost'
     LoginPrompt = False
-    Params.Strings = (
-      'server name=NTS-INTRAWEB'
-      'database name=STATS_CLIPPER'
-      ''
-      'USER NAME=SA'
-      'password=tvlcaleqalfesc')
-    SessionName = 'Default'
-    Left = 512
-    Top = 136
+    Left = 32
+    Top = 400
   end
-  object DB_VGE3: TDatabase
-    DatabaseName = 'vge3'
-    DriverName = 'MSSQL'
-    LoginPrompt = False
-    Params.Strings = (
-      'server name=NTS-INTRAWEB'
-      'database name=VGE3'
-      ''
-      'USER NAME=SA'
-      'password=tvlcaleqalfesc')
-    SessionName = 'Default'
-    Left = 512
-    Top = 184
+  object Q_mag: TMyQuery
+    Connection = mag
+    Left = 72
+    Top = 400
   end
-  object DB_master: TDatabase
-    DatabaseName = 'master'
-    DriverName = 'MSSQL'
-    LoginPrompt = False
-    Params.Strings = (
-      'server name=VEQUALIS2'
-      'database name=master'
-      ''
-      'USER NAME=SA')
-    SessionName = 'Default'
-    Left = 512
-    Top = 232
-  end
-  object Q_article_divers: TQuery
-    DatabaseName = 'statclipper'
-    SQL.Strings = (
-      'SELECT type FROM article_divers')
-    Left = 552
-    Top = 136
-  end
-  object Q_article_interior: TQuery
-    DatabaseName = 'statclipper'
-    Left = 600
-    Top = 136
-  end
-  object Q_VGE3_article: TQuery
-    DatabaseName = 'vge3'
-    SQL.Strings = (
-      'SELECT type FROM article')
-    Left = 552
-    Top = 184
-  end
-  object Q_Magasin: TQuery
-    DatabaseName = 'master'
-    Left = 552
-    Top = 232
-  end
-  object Q_param_Interior: TQuery
-    DatabaseName = 'paraminterior2'
-    SQL.Strings = (
-      'SELECT nombase FROM refmag WHERE actif = '#39'T'#39)
-    Left = 512
-    Top = 288
-  end
-  object DB_param_Interior: TDatabase
-    DatabaseName = 'paraminterior2'
-    DriverName = 'MSSQL'
-    LoginPrompt = False
-    Params.Strings = (
-      'server name=VEQUALIS2'
-      'database name=param_interior'
-      ''
-      'user name=SA')
-    SessionName = 'Default'
-    Left = 552
-    Top = 288
+  object Q_magasins: TMyQuery
+    Connection = mag
+    Left = 32
+    Top = 440
   end
 end

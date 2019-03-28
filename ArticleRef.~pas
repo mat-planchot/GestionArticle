@@ -4,21 +4,15 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, DB, DBTables, StdCtrls, Grids, DBGrids, ExtCtrls;
+  Dialogs, DB, DBTables, StdCtrls, Grids, DBGrids, ExtCtrls, MemDS,
+  DBAccess, MyAccess, CheckLst;
 
 type
   TForm1 = class(TForm)
-    DB_statsclipper: TDatabase;
-    DB_VGE3: TDatabase;
-    DB_master: TDatabase;
     Panel1: TPanel;
-    BtnRech: TButton;
+    B_Rechercher: TButton;
     EditRef: TEdit;
     LabelRef: TLabel;
-    Q_article_divers: TQuery;
-    Q_article_interior: TQuery;
-    Q_VGE3_article: TQuery;
-    Q_Magasin: TQuery;
     L_article_divers: TLabel;
     STextDivers: TStaticText;
     STextInterior: TStaticText;
@@ -28,13 +22,19 @@ type
     L_VGE3: TLabel;
     L_Magasin: TLabel;
     BtnFermer: TButton;
-    Q_param_Interior: TQuery;
-    DB_param_Interior: TDatabase;
     STextExistence: TStaticText;
     STextVge3Precision: TStaticText;
-    procedure BtnRechClick(Sender: TObject);
+    mag: TMyConnection;
+    Q_mag: TMyQuery;
+    Q_magasins: TMyQuery;
+    B_Ajout: TButton;
+    CLB_Mag: TCheckListBox;
+    B_Supprimer: TButton;
+    B_Voir: TButton;
+    procedure B_RechercherClick(Sender: TObject);
     procedure BtnFermerClick(Sender: TObject);
     procedure sqlCreate(Sender: TObject);
+    procedure B_AjoutClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,91 +46,59 @@ var
   ref, ref4: String;
   vge_type: String;
   magasins: tstringlist;
-  i: integer;
   magasinsCount: integer;
 implementation
 
+uses AjoutArticle;
+
 {$R *.dfm}
-procedure TForm1.BtnRechClick(Sender: TObject);
+procedure TForm1.B_RechercherClick(Sender: TObject);
+var i: integer;
 begin
   ref:= UpperCase(EditRef.Text);
-  if (length(ref) < 6) or (length(ref) > 6) then
+  if (length(ref) = 6) then
   begin
-    showMessage('Veuillez renseignez une référence de 6 caractères');
-  end
-  else begin
+    with Q_magasins do
+		begin
+      if (CLB_Mag.Items.Count = 0) then
+	    begin
+				for i:=0 to (magasins.Count - 1) do
+				begin
+					close;
+					SQL.Clear;
+					SQL.add('SELECT codeArticle FROM '+ LowerCase(magasins[i]) +' WHERE codeArticle = ' + quotedstr(ref) );
+					open;
+					if Q_Magasins.FieldByName('codeArticle').AsString = ref then
+					begin
+						L_Magasin.Caption:= 'existe dans '+ magasins[i];
+	        	CLB_Mag.Items.add(magasins[i]);
+					end
+					else begin
+						L_Magasin.Caption:= 'null';
+					end;
+				end;
+	   	end;
+		end;
 
-  with Q_article_divers do
-  begin
-    active:=false;
-    SQL.Clear;
-    SQL.add('SELECT type FROM article_divers WHERE type = ' + quotedstr(ref) );
-    active:=true;
-  end;
-  if Q_article_divers.FieldByName('type').AsString = ref then
-  begin
-    L_article_divers.Caption:= 'existe';
-  end
-  else begin
-    L_article_divers.Caption:= 'null';
-  end;
-
-  with Q_article_interior do
-  begin
-    close;
-    SQL.Clear;
-    SQL.add('SELECT type FROM article_interior WHERE type = ' + quotedstr(ref) );
-    open;
-  end;
-  if Q_article_interior.FieldByName('type').AsString = ref then
-  begin
-    L_article_interior.Caption:= 'existe';
-  end
-  else begin
-    L_article_interior.Caption:= 'null';
-  end;
-
-  with Q_VGE3_article do
-  begin
-    ref4:= Copy(ref, 0, 4);
-    close;
-    SQL.Clear;
-    SQL.add('SELECT type FROM article WHERE type LIKE ' + quotedstr(ref4 +'%') );
-    open;
-  end;
-  if Q_VGE3_article.FieldByName('type').AsString = ref4 then
-  begin
-    L_VGE3.Caption:= 'existe ' + IntToStr(Q_VGE3_article.RecordCount) + ' :';
-    Q_VGE3_article.First;
-    while not Q_VGE3_article.Eof do
+  end  {
+    with Q_article_divers do
     begin
-      L_VGE3.Caption:= L_VGE3.Caption + ' '+ Q_VGE3_article.FieldByName('type').AsString;
-      Q_VGE3_article.Next;
-    end;
-  end
-  else begin
-    L_VGE3.Caption:= 'null';
-  end;
-
-  with Q_Magasin do
-  begin
-    magasinsCount:= magasins.Count - 1;
-    for i:=0 to magasinsCount do
-    begin
-      close;
+      active:=false;
       SQL.Clear;
-      SQL.add('SELECT aarcode FROM '+ magasins[i] +'.dbo.article WHERE aarcode = ' + quotedstr(ref) );
-      open;
-      if Q_Magasin.FieldByName('aarcode').AsString = ref then
-      begin
-        L_Magasin.Caption:= 'existe dans '+ magasins[i];
-        break;
-      end
-      else begin
-        L_Magasin.Caption:= 'null';
-      end;
+      SQL.add('SELECT type FROM article_divers WHERE type = ' + quotedstr(ref) );
+      active:=true;
     end;
-  end;
+    if Q_article_divers.FieldByName('type').AsString = ref then
+    begin
+      L_article_divers.Caption:= 'existe';
+    end
+    else begin
+      L_article_divers.Caption:= 'null';
+    end;
+  }
+
+  else begin
+    showMessage('Veuillez renseignez une référence de 6 caractères');
   end;
 end {BtnRechClick};
 
@@ -142,20 +110,25 @@ end;
 procedure TForm1.sqlCreate(Sender: TObject);
 begin
   magasins:= TStringList.Create;
-  with Q_param_Interior do
+  with Q_magasins do
   begin
     close;
     SQL.Clear;
-    //Q_param_Interior.DatabaseName:= 'PARAM_INTERIOR';
-    SQL.add('SELECT nombase FROM refmag WHERE actif = ''T'' ' );
+    SQL.add('SELECT nomMagasin FROM refmag ' );
     open;
-    while not Q_param_Interior.Eof do
+    while not Eof do
     begin
-      magasins.Add(Q_param_Interior.FieldByName('nombase').AsString);
+      magasins.Add(FieldByName('nomMagasin').AsString);
       next;
     end
   end;
 end;
+
+procedure TForm1.B_AjoutClick(Sender: TObject);
+begin
+  Form3.Show;
+end;
+
 
 end.
 
