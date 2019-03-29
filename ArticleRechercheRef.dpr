@@ -2,14 +2,16 @@ program ArticleRechercheRef;
 
 uses
   Forms,
-  ArticleRef in 'ArticleRef.pas' {Form1},
-  AjoutArticle in 'AjoutArticle.pas' {Form3};
+  ArticleRef in 'ArticleRef.pas' {FormRecherche},
+  AjoutArticle in 'AjoutArticle.pas' {FormAjout},
+  AffichageArticle in 'AffichageArticle.pas' {FormAffichageArticle};
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.CreateForm(TForm1, Form1);
-  Application.CreateForm(TForm3, Form3);
+  Application.CreateForm(TFormRecherche, FormRecherche);
+  Application.CreateForm(TFormAjout, FormAjout);
+  Application.CreateForm(TFormAffichageArticle, FormAffichageArticle);
   Application.Run;
 end.

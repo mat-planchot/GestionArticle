@@ -8,16 +8,13 @@ uses
   DBAccess, MyAccess, CheckLst;
 
 type
-  TForm1 = class(TForm)
+  TFormRecherche = class(TForm)
     Panel1: TPanel;
     B_Rechercher: TButton;
     EditRef: TEdit;
     LabelRef: TLabel;
-    STextMagasins: TStaticText;
-    L_Magasin: TLabel;
     BtnFermer: TButton;
     STextExistence: TStaticText;
-    STextVge3Precision: TStaticText;
     mag: TMyConnection;
     Q_mag: TMyQuery;
     Q_magasins: TMyQuery;
@@ -38,17 +35,17 @@ type
   end;
 
 var
-  Form1: TForm1;
+  FormRecherche: TFormRecherche;
   ref, ref4: String;
   vge_type: String;
   magasins: tstringlist;
   magasinsCount: integer;
 implementation
 
-uses AjoutArticle;
+uses AjoutArticle, AffichageArticle;
 
 {$R *.dfm}
-procedure TForm1.B_RechercherClick(Sender: TObject);
+procedure TFormRecherche.B_RechercherClick(Sender: TObject);
 var i: integer;
 begin
   ref:= UpperCase(EditRef.Text);
@@ -66,11 +63,7 @@ begin
 					open;
 					if Q_Magasins.FieldByName('codeArticle').AsString = ref then
 					begin
-						L_Magasin.Caption:= 'existe dans '+ magasins[i];
 	        	CLB_Mag.Items.add(magasins[i]);
-					end
-					else begin
-						L_Magasin.Caption:= 'null';
 					end;
 				end;
 	   	end;
@@ -98,12 +91,12 @@ begin
   end;
 end {BtnRechClick};
 
-procedure TForm1.BtnFermerClick(Sender: TObject);
+procedure TFormRecherche.BtnFermerClick(Sender: TObject);
 begin
-  Form1.Close;
+  FormRecherche.Close;
 end;
 
-procedure TForm1.sqlCreate(Sender: TObject);
+procedure TFormRecherche.sqlCreate(Sender: TObject);
 begin
   magasins:= TStringList.Create;
   with Q_magasins do
@@ -120,18 +113,19 @@ begin
   end;
 end;
 
-procedure TForm1.B_AjoutClick(Sender: TObject);
+procedure TFormRecherche.B_AjoutClick(Sender: TObject);
 begin
-  Form3.Show;
+  FormAjout.Show;
 end;
 
 
-procedure TForm1.B_VoirClick(Sender: TObject);
+procedure TFormRecherche.B_VoirClick(Sender: TObject);
 begin
-  Form3.Show;
+  showMessage(CLB_Mag.Items[CLB_Mag.ItemIndex]);
+  FormAffichageArticle.Show;
 end;
 
-procedure TForm1.CLB_MagClickCheck(Sender: TObject);
+procedure TFormRecherche.CLB_MagClickCheck(Sender: TObject);
 var i: Integer;
 begin
   B_Voir.Visible := true;

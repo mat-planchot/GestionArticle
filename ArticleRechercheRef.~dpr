@@ -3,15 +3,15 @@ program ArticleRechercheRef;
 uses
   Forms,
   ArticleRef in 'ArticleRef.pas' {Form1},
-  Ajout in 'Ajout.pas' {Form2},
-  AjoutArticle in 'AjoutArticle.pas' {Form3};
+  AjoutArticle in 'AjoutArticle.pas' {Form3},
+  AffichageArticle in 'AffichageArticle.pas' {FormAffichageArticle};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.CreateForm(TForm1, Form1);
-  Application.CreateForm(TForm2, Form2);
   Application.CreateForm(TForm3, Form3);
+  Application.CreateForm(TFormAffichageArticle, FormAffichageArticle);
   Application.Run;
 end.

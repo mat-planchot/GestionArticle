@@ -1,8 +1,8 @@
-object Form1: TForm1
-  Left = 631
-  Top = 140
-  Width = 531
-  Height = 543
+object FormRecherche: TFormRecherche
+  Left = 528
+  Top = 145
+  Width = 517
+  Height = 546
   Caption = 'Reference'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -30,18 +30,6 @@ object Form1: TForm1
       Font.Color = clWindowText
       Font.Height = -19
       Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
-    end
-    object L_Magasin: TLabel
-      Left = 184
-      Top = 384
-      Width = 4
-      Height = 20
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Arial Narrow'
       Font.Style = []
       ParentFont = False
     end
@@ -74,20 +62,6 @@ object Form1: TForm1
       ParentFont = False
       TabOrder = 1
     end
-    object STextMagasins: TStaticText
-      Left = 56
-      Top = 384
-      Width = 90
-      Height = 24
-      Caption = 'Magasins :'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 2
-    end
     object BtnFermer: TButton
       Left = 176
       Top = 424
@@ -100,7 +74,7 @@ object Form1: TForm1
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 2
       OnClick = BtnFermerClick
     end
     object STextExistence: TStaticText
@@ -115,21 +89,7 @@ object Form1: TForm1
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold, fsUnderline]
       ParentFont = False
-      TabOrder = 4
-    end
-    object STextVge3Precision: TStaticText
-      Left = 56
-      Top = 352
-      Width = 394
-      Height = 20
-      Caption = 'VGE3 ne prend en compte que les 4 premiers caract'#232'res'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 5
+      TabOrder = 3
     end
     object B_Ajout: TButton
       Left = 280
@@ -143,17 +103,17 @@ object Form1: TForm1
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentFont = False
-      TabOrder = 6
+      TabOrder = 4
       OnClick = B_AjoutClick
     end
     object CLB_Mag: TCheckListBox
       Left = 56
       Top = 192
       Width = 217
-      Height = 145
+      Height = 193
       OnClickCheck = CLB_MagClickCheck
       ItemHeight = 13
-      TabOrder = 7
+      TabOrder = 5
       OnClick = CLB_MagClickCheck
     end
     object B_Supprimer: TButton
@@ -168,7 +128,7 @@ object Form1: TForm1
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentFont = False
-      TabOrder = 8
+      TabOrder = 6
       Visible = False
     end
     object B_Voir: TButton
@@ -183,7 +143,7 @@ object Form1: TForm1
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentFont = False
-      TabOrder = 9
+      TabOrder = 7
       Visible = False
       OnClick = B_VoirClick
     end

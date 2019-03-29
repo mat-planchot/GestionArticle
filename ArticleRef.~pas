@@ -8,18 +8,12 @@ uses
   DBAccess, MyAccess, CheckLst;
 
 type
-  TForm1 = class(TForm)
+  TFormRecherche = class(TForm)
     Panel1: TPanel;
     B_Rechercher: TButton;
     EditRef: TEdit;
     LabelRef: TLabel;
-    L_article_divers: TLabel;
-    STextDivers: TStaticText;
-    STextInterior: TStaticText;
-    STextVge3: TStaticText;
     STextMagasins: TStaticText;
-    L_article_interior: TLabel;
-    L_VGE3: TLabel;
     L_Magasin: TLabel;
     BtnFermer: TButton;
     STextExistence: TStaticText;
@@ -35,6 +29,8 @@ type
     procedure BtnFermerClick(Sender: TObject);
     procedure sqlCreate(Sender: TObject);
     procedure B_AjoutClick(Sender: TObject);
+    procedure B_VoirClick(Sender: TObject);
+    procedure CLB_MagClickCheck(Sender: TObject);
   private
     { Private declarations }
   public
@@ -42,17 +38,17 @@ type
   end;
 
 var
-  Form1: TForm1;
+  FormRecherche: TFormRecherche;
   ref, ref4: String;
   vge_type: String;
   magasins: tstringlist;
   magasinsCount: integer;
 implementation
 
-uses AjoutArticle;
+uses AjoutArticle, AffichageArticle;
 
 {$R *.dfm}
-procedure TForm1.B_RechercherClick(Sender: TObject);
+procedure TFormRecherche.B_RechercherClick(Sender: TObject);
 var i: integer;
 begin
   ref:= UpperCase(EditRef.Text);
@@ -102,12 +98,12 @@ begin
   end;
 end {BtnRechClick};
 
-procedure TForm1.BtnFermerClick(Sender: TObject);
+procedure TFormRecherche.BtnFermerClick(Sender: TObject);
 begin
-  Form1.Close;
+  FormRecherche.Close;
 end;
 
-procedure TForm1.sqlCreate(Sender: TObject);
+procedure TFormRecherche.sqlCreate(Sender: TObject);
 begin
   magasins:= TStringList.Create;
   with Q_magasins do
@@ -124,11 +120,24 @@ begin
   end;
 end;
 
-procedure TForm1.B_AjoutClick(Sender: TObject);
+procedure TFormRecherche.B_AjoutClick(Sender: TObject);
 begin
-  Form3.Show;
+  FormAjout.Show;
 end;
 
+
+procedure TFormRecherche.B_VoirClick(Sender: TObject);
+begin
+  showMessage(CLB_Mag.Items[CLB_Mag.ItemIndex]);
+  FormAffichageArticle.Show;
+end;
+
+procedure TFormRecherche.CLB_MagClickCheck(Sender: TObject);
+var i: Integer;
+begin
+  B_Voir.Visible := true;
+  B_Supprimer.Visible := true;
+end;
 
 end.
 
