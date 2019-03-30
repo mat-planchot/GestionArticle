@@ -20,7 +20,6 @@ type
     L_Designation: TLabel;
     L_Prix: TLabel;
     procedure B_SupprimerClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure FermerClick(Sender: TObject);
   private
     { Private declarations }
@@ -40,7 +39,7 @@ uses ArticleRef;
 procedure TFormAffichageArticle.B_SupprimerClick(Sender: TObject);
 var magItem: String;
 begin
-  with Form1.Q_Mag do
+  with FormRecherche.Q_Mag do
   begin
 	  try
 	    SQL.Clear;
@@ -51,12 +50,6 @@ begin
 	    Free;
 	  end;
   end;
-end;
-
-procedure TFormAffichageArticle.FormCreate(Sender: TObject);
-begin
-  L_Magasin.Caption := 'annemasse';
-  L_CodeArticle := Form1.LabelRef;
 end;
 
 procedure TFormAffichageArticle.FermerClick(Sender: TObject);

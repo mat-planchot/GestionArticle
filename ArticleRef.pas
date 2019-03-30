@@ -9,15 +9,13 @@ uses
 
 type
   TFormRecherche = class(TForm)
-    Panel1: TPanel;
-    B_Rechercher: TButton;
-    EditRef: TEdit;
-    LabelRef: TLabel;
-    BtnFermer: TButton;
-    STextExistence: TStaticText;
     mag: TMyConnection;
     Q_mag: TMyQuery;
-    Q_magasins: TMyQuery;
+    LabelRef: TLabel;
+    B_Rechercher: TButton;
+    EditRef: TEdit;
+    BtnFermer: TButton;
+    STextExistence: TStaticText;
     B_Ajout: TButton;
     CLB_Mag: TCheckListBox;
     B_Supprimer: TButton;
@@ -28,6 +26,7 @@ type
     procedure B_AjoutClick(Sender: TObject);
     procedure B_VoirClick(Sender: TObject);
     procedure CLB_MagClickCheck(Sender: TObject);
+    procedure B_SupprimerClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -36,10 +35,8 @@ type
 
 var
   FormRecherche: TFormRecherche;
-  ref, ref4: String;
-  vge_type: String;
+  ref: String;
   magasins: tstringlist;
-  magasinsCount: integer;
 implementation
 
 uses AjoutArticle, AffichageArticle;
@@ -51,7 +48,7 @@ begin
   ref:= UpperCase(EditRef.Text);
   if (length(ref) = 6) then
   begin
-    with Q_magasins do
+    with Q_mag do
 		begin
       if (CLB_Mag.Items.Count = 0) then
 	    begin
@@ -59,9 +56,10 @@ begin
 				begin
 					close;
 					SQL.Clear;
-					SQL.add('SELECT codeArticle FROM '+ LowerCase(magasins[i]) +' WHERE codeArticle = ' + quotedstr(ref) );
+					SQL.add('SELECT codeArticle FROM '+ LowerCase(magasins[i]) +
+          ' WHERE codeArticle = ' + quotedstr(ref) );
 					open;
-					if Q_Magasins.FieldByName('codeArticle').AsString = ref then
+					if FieldByName('codeArticle').AsString = ref then
 					begin
 	        	CLB_Mag.Items.add(magasins[i]);
 					end;
@@ -98,13 +96,16 @@ end;
 
 procedure TFormRecherche.sqlCreate(Sender: TObject);
 begin
-  magasins:= TStringList.Create;
-  with Q_magasins do
+  STextExistence.Caption := 'Liste des magasins dans laquelle la '+
+  #13#10+'référence est présente:';
+  STextExistence.Height := 40;
+  with Q_mag do
   begin
     close;
     SQL.Clear;
     SQL.add('SELECT nomMagasin FROM refmag ' );
     open;
+    magasins:= TStringList.Create;
     while not Eof do
     begin
       magasins.Add(FieldByName('nomMagasin').AsString);
@@ -121,16 +122,48 @@ end;
 
 procedure TFormRecherche.B_VoirClick(Sender: TObject);
 begin
-  showMessage(CLB_Mag.Items[CLB_Mag.ItemIndex]);
+  FormAffichageArticle.L_Magasin.Caption := CLB_Mag.Items[CLB_Mag.ItemIndex];
+  FormAffichageArticle.L_CodeArticle.Caption := EditRef.Text;
+  with Q_Mag do
+  begin
+	  try
+      close;
+	    SQL.Clear;
+	    SQL.Add('SELECT designation, prix FROM '+ LowerCase(CLB_Mag.Items[CLB_Mag.ItemIndex]) +' WHERE codeArticle = :codeArticle');
+			ParamByName('codeArticle').AsString := EditRef.Text;
+			Open;
+			while not Eof do
+      begin
+        FormAffichageArticle.L_Designation.Caption := FieldByName('designation').AsString;
+        FormAffichageArticle.L_Prix.Caption := FieldByName('prix').AsString;
+        next;
+      end;
+	    finally
+	      Free;
+	    end;
+  end;
   FormAffichageArticle.Show;
 end;
 
 procedure TFormRecherche.CLB_MagClickCheck(Sender: TObject);
-var i: Integer;
 begin
   B_Voir.Visible := true;
   B_Supprimer.Visible := true;
 end;
 
-end.
+procedure TFormRecherche.B_SupprimerClick(Sender: TObject);
+begin
+  with Q_Mag do
+  begin
+	  try
+	    SQL.Clear;
+	    SQL.Add('DELETE FROM '+ LowerCase(CLB_Mag.Items[CLB_Mag.ItemIndex]) +' WHERE codeArticle = :codeArticle);');
+			ParamByName('codeArticle').AsString := EditRef.Text;
+			Execute;
+	  finally
+	    Free;
+	  end;
+  end;
+end;
 
+end.

@@ -19,8 +19,12 @@ type
     L_CodeArticle: TLabel;
     L_Designation: TLabel;
     L_Prix: TLabel;
+    StaticText6: TStaticText;
+    B_Modifier: TButton;
+    E_Stock: TEdit;
+    StaticText7: TStaticText;
+    E_Reduction: TEdit;
     procedure B_SupprimerClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure FermerClick(Sender: TObject);
   private
     { Private declarations }
@@ -38,7 +42,6 @@ uses ArticleRef;
 {$R *.dfm}
 
 procedure TFormAffichageArticle.B_SupprimerClick(Sender: TObject);
-var magItem: String;
 begin
   with FormRecherche.Q_Mag do
   begin
@@ -51,14 +54,6 @@ begin
 	    Free;
 	  end;
   end;
-end;
-
-procedure TFormAffichageArticle.FormCreate(Sender: TObject);
-var codeArt: String;
-begin
-  L_Magasin.Caption := 'annemasse';
-  codeArt := FormRecherche.EditRef.Text;
-  L_CodeArticle.Caption := codeArt;
 end;
 
 procedure TFormAffichageArticle.FermerClick(Sender: TObject);
